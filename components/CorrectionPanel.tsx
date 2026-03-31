@@ -100,7 +100,7 @@ export function CorrectionPanel({
           parts.map((part, i) => {
             if (part.removed) {
               return (
-                <span key={i} className="line-through text-muted-foreground/40">
+                <span key={i} className="line-through text-red-400">
                   {part.value}
                 </span>
               );
