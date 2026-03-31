@@ -1,5 +1,7 @@
 # write-mal
 
+https://github.com/user-attachments/assets/9d9ba54e-6f03-424f-899f-d2df1fe5d679
+
 A personal French/Dutch writing practice app. Type on the left, get live grammar corrections with word-level diffs on the right. Highlight any text for AI-powered vocabulary, explanations, and phrase recommendations.
 
 ## Features
