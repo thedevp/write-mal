@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# write-mal
 
-## Getting Started
+A personal French/Dutch writing practice app. Type on the left, get live grammar corrections with word-level diffs on the right. Highlight any text for AI-powered vocabulary, explanations, and phrase recommendations.
 
-First, run the development server:
+## Features
+
+- **Live corrections** — grammar and spelling checked as you type (debounced, ~1.8s)
+- **Word diff** — see exactly what changed, with deletions struck through and additions highlighted
+- **Inline translation** — wrap English words in `{curly braces}` to translate them inline
+- **Assist panel** — select any text to get recommendations, explanations, or vocabulary (Recommend / Explain / Words)
+- **FR / NL toggle** — switch between French and Dutch; clears the editor for a fresh start
+- **Apply corrections** — one click (or ⌘↵) to accept all suggestions
+- **Resizable panels** — drag the vertical divider or the horizontal bar above the assist panel
+- **Walking mascot** — cat or dog; click to switch, it says encouraging things in your target language
+- **Persistent** — text, language, panel sizes, and mascot choice are saved in `localStorage`
+
+## Setup
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 18 or later
+- An [Anthropic API key](https://console.anthropic.com/)
+
+### 1. Clone and install
+
+```bash
+git clone <your-repo-url>
+cd write-mal
+npm install
+```
+
+### 2. Add your API key
+
+Create a `.env.local` file in the project root:
+
+```bash
+cp .env.local.example .env.local   # if the example exists, else create it manually
+```
+
+Open `.env.local` and add:
+
+```
+ANTHROPIC_API_KEY=sk-ant-api03-...
+```
+
+Get your key at [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys).
+
+> **Note:** Make sure your account has credits. Top up at [console.anthropic.com/settings/plans](https://console.anthropic.com/settings/plans).
+
+### 3. Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Cost estimate
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app uses **Claude Haiku** (the cheapest Claude model). A typical correction request sends ~200–400 tokens and receives ~200–400 tokens. At current Haiku pricing (~$0.80 / 1M input tokens, ~$4 / 1M output tokens), a full writing session of several hundred corrections costs well under $0.10.
 
-## Learn More
+The assist panel (Recommend / Explain / Words) uses a 512-token output cap — slightly pricier per call but only triggered on demand.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push the repo to GitHub.
+2. Import it at [vercel.com/new](https://vercel.com/new).
+3. Add `ANTHROPIC_API_KEY` as an environment variable in the Vercel project settings.
+4. Deploy.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  page.tsx              # Main layout, state, resize logic
+  api/
+    correct/route.ts    # Grammar correction endpoint
+    assist/route.ts     # Assist panel endpoint
+  globals.css           # Tailwind + cursor blink keyframe
+components/
+  WritingEditor.tsx     # Contenteditable editor with block cursor
+  CorrectionPanel.tsx   # Word diff display + copy button
+  AssistPanel.tsx       # Highlight-triggered assist modes
+  Mascot.tsx            # Walking cat/dog animation + phrases
+lib/
+  prompts.ts            # Claude prompt templates
+  diff.ts               # Word-diff wrapper
+```
