@@ -75,7 +75,7 @@ export function CorrectionPanel({
       {correctionPair && (
         <button
           onClick={handleCopy}
-          className="absolute top-4 right-4 z-10 text-[11px] px-2.5 py-1 rounded-full border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-all duration-150 bg-background/80 backdrop-blur-sm cursor-pointer"
+          className="absolute top-4 right-4 z-10 text-[14px] px-2.5 py-1 rounded-full border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-all duration-150 bg-background/80 backdrop-blur-sm cursor-pointer"
         >
           {copied ? "Copied!" : "Copy"}
         </button>
@@ -100,10 +100,7 @@ export function CorrectionPanel({
           parts.map((part, i) => {
             if (part.removed) {
               return (
-                <span
-                  key={i}
-                  className="line-through text-muted-foreground/40"
-                >
+                <span key={i} className="line-through text-muted-foreground/40">
                   {part.value}
                 </span>
               );
