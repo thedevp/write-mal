@@ -12,10 +12,11 @@ import { WritingEditor } from "@/components/WritingEditor";
 
 type MascotType = "cat" | "dog";
 
-const LANGUAGES: Language[] = ["FR", "NL"];
+const LANGUAGES: Language[] = ["FR", "NL", "ES"];
 const LANG_LABELS: Record<Language, string> = {
   FR: "Français",
   NL: "Nederlands",
+  ES: "Español",
 };
 const DEBOUNCE_MS = 1800;
 

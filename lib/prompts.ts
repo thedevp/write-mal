@@ -1,9 +1,10 @@
-export type Language = "FR" | "NL";
+export type Language = "FR" | "NL" | "ES";
 export type AssistMode = "Recommend" | "Explain" | "Words";
 
 const LANGUAGE_NAMES: Record<Language, string> = {
   FR: "French",
   NL: "Dutch",
+  ES: "Spanish",
 };
 
 export function correctionPrompt(language: Language): string {

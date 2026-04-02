@@ -42,6 +42,20 @@ const ENCOURAGEMENTS: Record<Language, Record<MascotType, string[]>> = {
       "Woef woef! Ik ben trots op je!",
     ],
   },
+  ES: {
+    cat: [
+      "¡Miau! ¡Lo estás haciendo muy bien!",
+      "¡Sigue así, pequeño escritor!",
+      "¡Bravo! ¡Estás progresando mucho!",
+      "¡Cada vez escribes mejor!",
+    ],
+    dog: [
+      "¡Guau! ¡Eres fantástico!",
+      "¡Vamos, puedes hacerlo!",
+      "¡Guau! ¡Qué trabajo tan bonito!",
+      "¡Guau guau! ¡Estoy orgulloso de ti!",
+    ],
+  },
 };
 
 // Idle walk-by phrases — shorter, casual
@@ -65,6 +79,16 @@ const AUTO_PHRASES: Record<Language, string[]> = {
     "Top gedaan!",
     "Je doet het!",
     "Ik geloof in jou!",
+  ],
+  ES: [
+    "¡Puedes lograrlo!",
+    "¡Sigue escribiendo!",
+    "¡Qué valentía!",
+    "¡Magnífico!",
+    "¡Estás progresando!",
+    "¡Excelente trabajo!",
+    "¡Creo en ti!",
+    "¡Muy bien!",
   ],
 };
 
