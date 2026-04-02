@@ -49,8 +49,8 @@ export function AssistPanel({ selectedText, context, language, isLoading }: Assi
   return (
     <div className="h-full flex flex-col border-t border-border/60" data-assist-panel>
       {/* Header */}
-      <div className="flex items-center gap-1.5 px-4 py-2 border-b border-border/40 shrink-0">
-        <span className="text-[11px] text-muted-foreground/50 font-medium uppercase tracking-wider mr-1.5">
+      <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 border-b border-border/40 shrink-0">
+        <span className="text-xs text-muted-foreground/50 font-medium uppercase tracking-wider mr-1.5">
           assist
         </span>
         {MODES.map((mode) => (
@@ -58,7 +58,7 @@ export function AssistPanel({ selectedText, context, language, isLoading }: Assi
             key={mode}
             onClick={() => handleMode(mode)}
             disabled={!selectedText}
-            className={`text-[12px] px-3 py-1 rounded-full transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed ${
+            className={`text-xs px-3 py-2 sm:py-1 rounded-full transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed ${
               activeMode === mode
                 ? "bg-foreground text-background font-medium"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -70,7 +70,7 @@ export function AssistPanel({ selectedText, context, language, isLoading }: Assi
 
         {/* Re-checking indicator lives here — no layout shift in correction panel */}
         {isLoading && (
-          <span className="ml-auto text-[11px] text-muted-foreground/40 animate-pulse">
+          <span className="ml-auto text-xs text-muted-foreground/40 animate-pulse">
             re-checking…
           </span>
         )}

@@ -129,17 +129,17 @@ export function WritingEditor({
       {/* Placeholder */}
       {!value && (
         <div
-          className="absolute top-8 left-8 right-8 text-muted-foreground/30 pointer-events-none select-none whitespace-pre-wrap text-[1.05rem] leading-[1.85]"
+          className="absolute top-4 left-4 right-4 sm:top-8 sm:left-8 sm:right-8 text-muted-foreground/30 pointer-events-none select-none whitespace-pre-wrap text-[1.05rem] leading-[1.85]"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           {placeholder}
         </div>
       )}
 
-      {/* Block cursor — uses mix-blend-mode:difference so characters show through inverted */}
+      {/* Block cursor — desktop only; mobile uses native cursor */}
       {isFocused && cursorPos && (
         <div
-          className="fixed pointer-events-none z-50"
+          className="hidden sm:block fixed pointer-events-none z-50"
           style={{
             top: cursorPos.top,
             left: cursorPos.left,
@@ -166,7 +166,7 @@ export function WritingEditor({
         onClick={updateCursor}
         onScroll={updateCursor}
         spellCheck={false}
-        className="flex-1 overflow-y-auto p-8 pb-28 text-[1.05rem] leading-[1.85] tracking-[0.01em] focus:outline-none break-words"
+        className="flex-1 overflow-y-auto p-4 pb-20 sm:p-8 sm:pb-28 text-[1.05rem] leading-[1.85] tracking-[0.01em] focus:outline-none break-words"
         style={{
           fontFamily: "var(--font-geist-mono)",
           caretColor: "transparent",

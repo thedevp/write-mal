@@ -93,7 +93,7 @@ export function CorrectionPanel({
       )}
 
       <div
-        className="flex-1 overflow-y-auto p-8 text-[1.05rem] leading-[1.85] tracking-[0.01em] break-words"
+        className="flex-1 overflow-y-auto p-4 sm:p-8 text-[1.05rem] leading-[1.85] tracking-[0.01em] break-words"
         style={{ fontFamily: "var(--font-geist-sans)", whiteSpace: "pre-wrap" }}
       >
         {parts ? (
