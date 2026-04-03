@@ -1,5 +1,5 @@
 export type Language = "FR" | "NL" | "ES";
-export type AssistMode = "Recommend" | "Explain" | "Words";
+export type AssistMode = "Recommend" | "Explain" | "Words" | "Translate";
 
 const LANGUAGE_NAMES: Record<Language, string> = {
   FR: "French",
@@ -28,13 +28,16 @@ export function assistPrompt(
 ): string {
   const lang = LANGUAGE_NAMES[language];
   const modeInstructions: Record<AssistMode, string> = {
-    Recommend: `Suggest 3 more natural or idiomatic ways to express the highlighted phrase in ${lang}.
-Format as a numbered list. For each suggestion, add a short note on when/why you'd use it. Keep it concise.`,
+    Recommend: `First, briefly assess the highlighted phrase: is it something a native ${lang} speaker would naturally say, or does it sound unnatural/incorrect? One or two sentences max.
+
+Then suggest 3 more natural or idiomatic alternatives in ${lang}.
+Format the alternatives as a numbered list. For each, add a short note on when/why you'd use it. Keep it concise.`,
     Explain: `Explain the grammar rule behind this phrase or any correction that would apply to it.
 Focus on one key point. Be brief and educational. Use simple English. Include an example if helpful.`,
     Words: `Break down the key vocabulary in the highlighted text.
 For each word: show the ${lang} word, its English meaning, grammatical info (e.g. noun gender, verb group), and one usage tip.
 Format as a clean list.`,
+    Translate: `Translate the highlighted text into English. Preserve idiomatic expressions, colloquialisms, and slang with their natural English equivalents rather than translating literally. Return only the translation — no quotes, no explanation, no commentary.`,
   };
 
   return `You are a ${lang} writing assistant.

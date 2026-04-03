@@ -17,6 +17,8 @@ export function AssistPanel({ selectedText, context, language, isLoading }: Assi
   const [activeMode, setActiveMode] = useState<AssistMode | null>(null);
   const [content, setContent] = useState("");
   const [isAssisting, setIsAssisting] = useState(false);
+  const [translation, setTranslation] = useState("");
+  const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
     if (selectedText) {
@@ -24,6 +26,28 @@ export function AssistPanel({ selectedText, context, language, isLoading }: Assi
       setContent("");
     }
   }, [selectedText]);
+
+  // Auto-translate whenever selection changes
+  useEffect(() => {
+    if (!selectedText) {
+      setTranslation("");
+      return;
+    }
+    setIsTranslating(true);
+    setTranslation("");
+    const controller = new AbortController();
+    fetch("/api/assist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ selected: selectedText, context, language, mode: "Translate" }),
+      signal: controller.signal,
+    })
+      .then((res) => res.json())
+      .then((data) => { if (!data.error) setTranslation(data.content || ""); })
+      .catch(() => {})
+      .finally(() => setIsTranslating(false));
+    return () => controller.abort();
+  }, [selectedText, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleMode(mode: AssistMode) {
     if (!selectedText) return;
@@ -76,10 +100,18 @@ export function AssistPanel({ selectedText, context, language, isLoading }: Assi
         )}
       </div>
 
-      {/* Selected text label */}
-      <div className="px-4 py-1.5 text-[12px] text-muted-foreground/50 italic border-b border-border/30 shrink-0 truncate">
+      {/* Selected text label + inline translation */}
+      <div className="px-4 py-1.5 text-[12px] text-muted-foreground/50 italic border-b border-border/30 shrink-0 break-words">
         {selectedText ? (
-          <>&ldquo;{selectedText}&rdquo;</>
+          <>
+            &ldquo;{selectedText}&rdquo;
+            {isTranslating && (
+              <span className="not-italic text-muted-foreground/30 ml-1.5">…</span>
+            )}
+            {translation && !isTranslating && (
+              <span className="not-italic text-muted-foreground/35 ml-1.5">({translation})</span>
+            )}
+          </>
         ) : (
           <span className="not-italic text-muted-foreground/30">
             highlight text in either panel for assistance
