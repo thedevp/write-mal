@@ -305,7 +305,7 @@ export default function Home() {
           className={`flex flex-col border-border/60 relative min-w-0 md:shrink-0 border-b md:border-b-0 md:border-r ${
             mobileTab !== "write" ? "hidden md:flex md:flex-col" : "flex-1 md:flex-none"
           }`}
-          style={{ width: `${leftWidthPct}%` }}
+          style={isMobile ? undefined : { width: `${leftWidthPct}%` }}
         >
           <WritingEditor
             value={text}
@@ -400,7 +400,10 @@ export default function Home() {
       </main>
 
       {/* Mobile bottom tab bar */}
-      <nav className="md:hidden flex border-t border-border/60 shrink-0 bg-background">
+      <nav
+        className="md:hidden flex border-t border-border/60 shrink-0 bg-background"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
         {(["write", "correct", "assist"] as const).map((tab) => {
           const labels: Record<MobileTab, string> = {
             write: "Write",

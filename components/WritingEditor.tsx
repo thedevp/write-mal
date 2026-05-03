@@ -166,10 +166,9 @@ export function WritingEditor({
         onClick={updateCursor}
         onScroll={updateCursor}
         spellCheck={false}
-        className="flex-1 overflow-y-auto p-4 pb-20 sm:p-8 sm:pb-28 text-[1.05rem] leading-[1.85] tracking-[0.01em] focus:outline-none break-words"
+        className="flex-1 overflow-y-auto p-4 pb-20 sm:p-8 sm:pb-28 text-[1.05rem] leading-[1.85] tracking-[0.01em] focus:outline-none break-words sm:caret-transparent"
         style={{
           fontFamily: "var(--font-geist-mono)",
-          caretColor: "transparent",
           whiteSpace: "pre-wrap",
         }}
       />
